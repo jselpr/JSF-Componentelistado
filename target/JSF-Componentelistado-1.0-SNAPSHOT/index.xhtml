@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:abmc="http://xmlns.jcp.org/jsf/composite/abmc"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+       
+        <center>
+        <h:outputText class="texto" value="Componente JSF 2.2 para el renderizado de listados
+                      conectados a base de datos que realiza altas, bajas, modificaciones y consultas."/>
+        </center>
+        <h:form>
+        <abmc:componente dao="#{dao}" listado="buscarTodosClientes"
+                         listadoCount="contarTodosClientes" 
+                         modoInsercion="true"
+                         modoEdicion="true"
+                         modoBorrado="true"
+                         clase="modelo.Cliente"
+                         tamañoPagina="3"
+                             ord="id"
+                             asc="true"
+                             libreria="abmc"
+                             cssfile="abmc.css"
+                             cssclase="cloc"
+                         >
+            <f:facet name="listado">
+                <h:column>
+                    <f:facet name="header">
+                    <abmc:ordenacion nombre="id"/>
+                    </f:facet>
+                    #{registro.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                    <abmc:ordenacion nombre="nombre"/>
+                    </f:facet>
+                    #{registro.nombre}
+                </h:column>
+            </f:facet>
+            <f:facet name="insercion">
+                <ui:remove><!--Si deseamos copiar la faceta al datatable mediante código
+                           tiene que estar agrupado en un panel--></ui:remove>
+                <h:panelGrid columns="3">
+                <h:outputLabel for="nombreI"/>
+                <h:inputText id="nombreI" value="#{cc.actual.nombre}"/>
+                <h:message for="nombreI"/>
+                </h:panelGrid>
+            </f:facet>
+            <f:facet name="edicion">
+                <h:panelGrid columns="3">
+                <h:outputLabel for="nombreE"/>
+                <h:inputText id="nombreE" value="#{cc.actual.nombre}"/>
+                <h:message for="nombreE"/>
+                </h:panelGrid>
+            </f:facet>
+            <f:facet name="borrado">
+                <h:panelGroup>
+                Borrando #{cc.actual.nombre}
+                </h:panelGroup>
+            </f:facet>
+        </abmc:componente>
+        </h:form>
+        <center>
+        <h:outputText class="copy" value="Componente realizado por José López Ruiz."/>
+        </center>
+    </h:body>
+</html>
+
